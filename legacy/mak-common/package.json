@@ -1,0 +1,38 @@
+{
+  "name": "@bertco/mak-common",
+  "version": "1.0.0",
+  "description": "Useful bits of typescript used all over my code",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build-tsc": "tsc",
+    "prepare": "npm run build",
+    "build": "tsc && cp -r src/assets dist/assets",
+    "clean": "rm -rf dist && rm -rf node_modules && yarn",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Mitch Kahn",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^9.1.0",
+    "password-validator": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.22.0",
+    "jest": "^27.0.6",
+    "prettier": "^2.2.1",
+    "ts-jest": "^27.0.4",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.1.3"
+  }
+}

@@ -1,0 +1,29 @@
+@import "wxmixins";
+
+.floatingcard {
+
+  //@include light-border;
+  @include very-light-shadow;
+  background-color: #fafafa;
+  padding: 20px;
+  margin: 10px 0 0 0;
+
+  h4 {
+    margin-top: 2px!important;
+  }
+
+}
+
+.exercise-card {
+  background-color: #c3e0c1;
+  padding: 4px;
+  width: 200px;
+  font-size: 12px;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.break {
+  background-color: #5bc5b6;
+}

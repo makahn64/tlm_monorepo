@@ -1,0 +1,46 @@
+@import "colors";
+
+.selectable-row {
+  tr {
+    &:hover {
+      background-color: $green-highlight!important;
+      transition: all 0.5s;
+    }
+  }
+}
+
+.span-link {
+  color: $blue;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+}
+
+.wx_tab {
+
+  background-color: transparent;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  transition: all 0.1s ease-in-out;
+  font-weight: normal;
+  color: $colorGrey50;
+  margin-left: 20px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: $color1;
+    font-weight: bold;
+    color: white !important;
+
+  }
+
+  .active {
+    background-color: $color5;
+    color: white !important;
+    font-weight: bolder;
+  }
+
+}

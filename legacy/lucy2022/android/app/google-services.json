@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "207697785725",
+    "firebase_url": "https://tlm2021-41ce7.firebaseio.com",
+    "project_id": "tlm2021-41ce7",
+    "storage_bucket": "tlm2021-41ce7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207697785725:android:cf5ef6b216d1455b78d214",
+        "android_client_info": {
+          "package_name": "com.thelotusmethod.lucy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207697785725-9mrs6rthbo9lkbfoobjmcjdhen49m3co.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYqvJsDiIqB9Q8DCiGv0qHZrsEL_2Fk94"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207697785725-9mrs6rthbo9lkbfoobjmcjdhen49m3co.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "207697785725-jschhr55p8p345fijqmk1lp8aasf9snt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.thelotusmethod.lucy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

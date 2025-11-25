@@ -1,0 +1,11 @@
+@import "wxmixins";
+
+.page-container {
+  //@include light-border;
+  @include very-light-shadow;
+  background-color: #eee;
+  margin-right: 20px;
+  margin-left: 20px;
+  min-height: 500px;
+  margin-top: 50px;
+}

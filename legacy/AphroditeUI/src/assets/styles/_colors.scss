@@ -1,0 +1,53 @@
+// from coolors.co/286bb5-f6f7eb-e94f37-393e41-44bba4
+
+/* HSL */
+//$color1: hsla(273%, 22%, 41%, 1);
+//$color2: hsla(240%, 3%, 88%, 1);
+//$color3: hsla(172%, 47%, 66%, 1);
+//$color4: hsla(229%, 22%, 76%, 1);
+//$color5: hsla(218%, 27%, 57%, 1);
+
+/* RGB */
+$color1: rgba(107, 81, 128, 1);
+$color2: rgba(224, 224, 226, 1);
+$color3: rgba(129, 210, 199, 1);
+$color4: rgba(181, 186, 208, 1);
+$color5: rgba(115, 137, 174, 1);
+
+$colorPinkish: rgb(187, 56, 135);
+
+$theme-colors: (
+        "primary": $color1,
+        "danger": $color3,
+        "success": $color5
+);
+
+// from coolors.co/286bb5-f6f7eb-e94f37-393e41-44bba4
+$colorNeonGreen: #9ccc26;
+
+$colorGrey50: #7b7b7b;
+$colorGrey75: #c3c3c3;
+$colorGrey90: #f0f0f0;
+
+$theme-colors: (
+        "primary": $color5,
+        "danger": #E83151,
+        "success": $color3,
+        "warning": #CB904d,
+        "dark": $color1
+);
+
+$blue: $color1;
+$green: $color5;
+$red: $color3;
+$yellow: $color2;
+
+$green-highlight: lighten($green, 25%);
+
+.text-sea-green {
+  color: $color5;
+}
+
+.text-sea-green-lt {
+  color: lighten($color5, 20%);
+}

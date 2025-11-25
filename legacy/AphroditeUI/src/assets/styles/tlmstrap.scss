@@ -1,0 +1,114 @@
+@import "colors";
+@import "dimensions";
+@import "wxmixins";
+@import "json-pretty";
+@import "cards";
+@import "elements";
+@import "containers";
+@import "typography";
+@import "overridesAndFixes";
+@import "animations";
+@import "../../../node_modules/antd/dist/antd.css";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+//@import "../../../node_modules/react-redux-toastr/src/styles/index";
+// FA 5.1 below
+@import "../../../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+@import "../../../node_modules/@fortawesome/fontawesome-free/css/brands.min.css";
+//@import "../../../node_modules/react-redux-toastr/src/styles/index";
+@import "../../../node_modules/animate.css/animate.min.css";
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+@font-face {
+  font-family: 'Antipasto';
+  src: url(AntipastoPro-Light.ttf) format('truetype'),
+  url(AntipastoPro-Medium.ttf) format('truetype');
+}
+
+body {
+  //padding-top: 45px;
+  background-color: $color1;
+  //font-family: 'Antipasto', sans-serif !important;
+  //font-weight: bold !important;
+}
+
+// Common elements
+.container-right {
+  position: relative;
+  left: $leftMenuWidth;
+  width: 80%;
+}
+
+// Highlights a table row with light green when hovered if the table has
+// clickable-results as a class
+table.clickable-results tr:hover td {
+  background-color: #e5d9ff; //lighten($success, 50%);
+}
+
+
+// These are pulled from react-json-pretty which used Stylus (.styl) files. Screw that.
+.json-pretty {
+  line-height: 1.3;
+  color: #66d9ef;
+  background: #272822;
+  margin: 10px;
+  padding: 10px;
+
+  .json-key {
+    color: #F92672;
+  }
+
+  .json-value {
+    color: #A6E22E;
+  }
+
+  .json-string {
+    color: #FD971F;
+  }
+
+  .json-boolean {
+    color: #AC81Fe;
+  }
+
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #A6E22E inset;
+}
+
+//body {
+//  background-color: #54729e;
+//}
+
+.faint-drop-shadow {
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(209, 209, 209, 0.5);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(209, 209, 209, 0.5);
+  box-shadow: 2px 2px 5px 0px rgba(209, 209, 209, 0.5);
+}
+
+.faint-border {
+  border: 1px solid #f5f5f5;
+}
+
+.edit-form {
+
+  h4 {
+    color: $text-muted;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+  }
+
+}
+
+.wx-card {
+  @include light-border;
+  @include light-shadow;
+  margin: 5px;
+}
+
+.selectable {
+  &:hover {
+    @include hover-shadow;
+  }
+}

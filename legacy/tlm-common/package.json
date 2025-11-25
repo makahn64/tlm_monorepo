@@ -1,0 +1,25 @@
+{
+  "name": "tlm-common",
+  "version": "1.0.31",
+  "description": "Common code between Lucy, LSD and Aphrodite",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build-tsc": "tsc",
+    "prepare": "npm run build",
+    "build": "cp -r src/assets dist/assets && tsc"
+  },
+  "keywords": [],
+  "author": "Mitch Kahn",
+  "license": "ISC",
+  "dependencies": {
+    "@types/lodash": "^4.14.168",
+    "firebase": "^8.1.2",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1",
+    "password-validator": "^5.1.1"
+  }
+}
