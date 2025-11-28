@@ -231,20 +231,20 @@
     - Send password reset email for new users
     - _Requirements: 3.1, 3.2_
 
-- [ ] 11. Implement Media Management
-  - [ ] 11.1 Create Media Library page
+- [x] 11. Implement Media Management
+  - [x] 11.1 Create Media Library page
     - Display all media files
     - Filter by type
     - Add upload button
     - _Requirements: 8.1, 8.4_
   
-  - [ ] 11.2 Create Media Upload component
+  - [x] 11.2 Create Media Upload component
     - Build file upload interface
     - Handle Cloud Storage upload
     - Create Firestore reference
     - _Requirements: 8.2_
   
-  - [ ] 11.3 Create Media Detail page
+  - [x] 11.3 Create Media Detail page
     - Display media information
     - Show storage URL
     - Add delete button

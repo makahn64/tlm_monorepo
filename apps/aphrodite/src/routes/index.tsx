@@ -19,6 +19,9 @@ import { PrebuiltWorkoutList } from '../pages/PrebuiltWorkoutList';
 import { PrebuiltWorkoutDetail } from '../pages/PrebuiltWorkoutDetail';
 import { PrebuiltWorkoutCreate } from '../pages/PrebuiltWorkoutCreate';
 import { PrebuiltWorkoutEdit } from '../pages/PrebuiltWorkoutEdit';
+import { MediaLibrary } from '../pages/MediaLibrary';
+import { MediaUpload } from '../pages/MediaUpload';
+import { MediaDetail } from '../pages/MediaDetail';
 import { UserList } from '../pages/UserList';
 import { UserCreate } from '../pages/UserCreate';
 import { UserEdit } from '../pages/UserEdit';
@@ -253,6 +256,42 @@ export const router = createBrowserRouter([
         <RoleProtectedRoute allowedRoles={[UserRole.ADMIN]}>
           <Layout>
             <UserEdit />
+          </Layout>
+        </RoleProtectedRoute>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/media',
+    element: (
+      <ProtectedRoute>
+        <RoleProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.EDITOR]}>
+          <Layout>
+            <MediaLibrary />
+          </Layout>
+        </RoleProtectedRoute>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/media/upload',
+    element: (
+      <ProtectedRoute>
+        <RoleProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.EDITOR]}>
+          <Layout>
+            <MediaUpload />
+          </Layout>
+        </RoleProtectedRoute>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/media/:id',
+    element: (
+      <ProtectedRoute>
+        <RoleProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.EDITOR]}>
+          <Layout>
+            <MediaDetail />
           </Layout>
         </RoleProtectedRoute>
       </ProtectedRoute>

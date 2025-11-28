@@ -1,0 +1,57 @@
+rules_version = '2';
+
+// Firebase Storage Security Rules
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return isAuthenticated() && 
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.roles.hasAny(['admin']);
+    }
+    
+    // Helper function to check if user is editor
+    function isEditor() {
+      return isAuthenticated() && 
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.roles.hasAny(['admin', 'editor']);
+    }
+    
+    // Media files - accessible by authenticated users, writable by editors and admins
+    match /media/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isEditor();
+      allow delete: if isEditor();
+    }
+    
+    // Exercise videos and thumbnails - accessible by authenticated users, writable by editors and admins
+    match /exercises/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isEditor();
+      allow delete: if isEditor();
+    }
+    
+    // User profile images - users can read/write their own, admins can access all
+    match /users/{userId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow delete: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+    }
+    
+    // Workout-related media
+    match /workouts/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+    
+    // Default deny all other paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

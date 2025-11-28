@@ -8,3 +8,6 @@ export * from './prebuilt-workouts';
 export * from './media';
 export * from './notes';
 export * from './errors';
+
+// Re-export types
+export type { Media, UploadProgressCallback } from './media';
