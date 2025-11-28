@@ -6,4 +6,5 @@ export * from './exercises';
 export * from './workouts';
 export * from './prebuilt-workouts';
 export * from './media';
+export * from './notes';
 export * from './errors';

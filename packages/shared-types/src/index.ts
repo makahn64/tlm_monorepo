@@ -16,3 +16,6 @@ export type {
   PrebuiltWorkout, 
   WorkoutProgress 
 } from './workout';
+
+// Note types
+export type { TrainerNote, Recommendation } from './note';

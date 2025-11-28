@@ -53,17 +53,14 @@ const documentToClient = (id: string, data: DocumentData): Client => {
  * Converts Client type to Firestore document data
  */
 const clientToDocument = (client: Omit<Client, 'uid'>): DocumentData => {
-  return {
+  const doc: DocumentData = {
     email: client.email,
     firstName: client.firstName,
     lastName: client.lastName,
     clientType: client.clientType,
     trainerIds: client.trainerIds,
     fitnessLevel: client.fitnessLevel,
-    dateOfBirth: client.dateOfBirth,
-    dueDate: client.dueDate,
     isPregnant: client.isPregnant,
-    tryingToConceive: client.tryingToConceive,
     backPain: client.backPain,
     sciatica: client.sciatica,
     injuries: client.injuries,
@@ -71,13 +68,22 @@ const clientToDocument = (client: Omit<Client, 'uid'>): DocumentData => {
     equipment: client.equipment,
     themeMode: client.themeMode,
     accountActive: client.accountActive,
-    hasAcceptedLiabilityWaiver: client.hasAcceptedLiabilityWaiver,
-    hasCompletedOnboarding: client.hasCompletedOnboarding,
     markedForDeletion: client.markedForDeletion,
     schemaVersion: client.schemaVersion,
     createdAt: Timestamp.fromDate(client.createdAt),
     updatedAt: Timestamp.fromDate(client.updatedAt),
   };
+
+  // Only include optional fields if they have values
+  if (client.dateOfBirth) doc.dateOfBirth = client.dateOfBirth;
+  if (client.dueDate) doc.dueDate = client.dueDate;
+  if (client.tryingToConceive !== undefined) doc.tryingToConceive = client.tryingToConceive;
+  if (client.hasAcceptedLiabilityWaiver !== undefined)
+    doc.hasAcceptedLiabilityWaiver = client.hasAcceptedLiabilityWaiver;
+  if (client.hasCompletedOnboarding !== undefined)
+    doc.hasCompletedOnboarding = client.hasCompletedOnboarding;
+
+  return doc;
 };
 
 /**
