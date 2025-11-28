@@ -19,8 +19,13 @@ import { PrebuiltWorkoutList } from '../pages/PrebuiltWorkoutList';
 import { PrebuiltWorkoutDetail } from '../pages/PrebuiltWorkoutDetail';
 import { PrebuiltWorkoutCreate } from '../pages/PrebuiltWorkoutCreate';
 import { PrebuiltWorkoutEdit } from '../pages/PrebuiltWorkoutEdit';
+import { UserList } from '../pages/UserList';
+import { UserCreate } from '../pages/UserCreate';
+import { UserEdit } from '../pages/UserEdit';
 import { ProtectedRoute } from '../components/ProtectedRoute';
+import { RoleProtectedRoute } from '../components/RoleProtectedRoute';
 import { Layout } from '../components/Layout';
+import { UserRole } from '@lotus/shared-types';
 
 export const router = createBrowserRouter([
   {
@@ -214,6 +219,42 @@ export const router = createBrowserRouter([
         <Layout>
           <PrebuiltWorkoutEdit />
         </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/users',
+    element: (
+      <ProtectedRoute>
+        <RoleProtectedRoute allowedRoles={[UserRole.ADMIN]}>
+          <Layout>
+            <UserList />
+          </Layout>
+        </RoleProtectedRoute>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/users/new',
+    element: (
+      <ProtectedRoute>
+        <RoleProtectedRoute allowedRoles={[UserRole.ADMIN]}>
+          <Layout>
+            <UserCreate />
+          </Layout>
+        </RoleProtectedRoute>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/users/:id/edit',
+    element: (
+      <ProtectedRoute>
+        <RoleProtectedRoute allowedRoles={[UserRole.ADMIN]}>
+          <Layout>
+            <UserEdit />
+          </Layout>
+        </RoleProtectedRoute>
       </ProtectedRoute>
     ),
   },
