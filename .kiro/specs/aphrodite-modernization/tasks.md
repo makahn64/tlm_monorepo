@@ -125,26 +125,26 @@
 
 ## Phase 3: Core Features
 
-- [ ] 6. Implement Exercise Management
-  - [ ] 6.1 Create Exercise List page
+- [x] 6. Implement Exercise Management
+  - [x] 6.1 Create Exercise List page
     - Display all exercises in a table/grid
     - Add search and filter functionality
     - Add create new exercise button
     - _Requirements: 4.1, 4.5_
   
-  - [ ] 6.2 Create Exercise Detail page
+  - [x] 6.2 Create Exercise Detail page
     - Display all exercise information
     - Show video references
     - Add edit and archive buttons
     - _Requirements: 4.6_
   
-  - [ ] 6.3 Create Exercise Form component
+  - [x] 6.3 Create Exercise Form component
     - Build form for create/edit
     - Add validation
     - Handle video reference inputs
     - _Requirements: 4.2, 4.3_
   
-  - [ ] 6.4 Implement exercise search and filtering
+  - [x] 6.4 Implement exercise search and filtering
     - Filter by movement pattern
     - Filter by equipment
     - Search by name
