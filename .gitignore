@@ -38,6 +38,8 @@ coverage/
 # Security
 FIREBASE_CONFIGS_SECURE.md
 service-account-key.json
+*-service-account.json
+*firebase-adminsdk*.json
 
 # Firestore exports (contain PII)
 firestore-export*.json
