@@ -12,8 +12,13 @@ import { ClientEdit } from '../pages/ClientEdit';
 import { ClientNotesPage } from '../pages/ClientNotes';
 import { ClientWorkouts } from '../pages/ClientWorkouts';
 import { ClientWorkoutCreate } from '../pages/ClientWorkoutCreate';
+import { ClientWorkoutFromTemplate } from '../pages/ClientWorkoutFromTemplate';
 import { ClientWorkoutDetail } from '../pages/ClientWorkoutDetail';
 import { ClientWorkoutEdit } from '../pages/ClientWorkoutEdit';
+import { PrebuiltWorkoutList } from '../pages/PrebuiltWorkoutList';
+import { PrebuiltWorkoutDetail } from '../pages/PrebuiltWorkoutDetail';
+import { PrebuiltWorkoutCreate } from '../pages/PrebuiltWorkoutCreate';
+import { PrebuiltWorkoutEdit } from '../pages/PrebuiltWorkoutEdit';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { Layout } from '../components/Layout';
 
@@ -143,6 +148,16 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: '/clients/:id/workouts/from-template',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <ClientWorkoutFromTemplate />
+        </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
     path: '/clients/:id/workouts/:workoutId',
     element: (
       <ProtectedRoute>
@@ -158,6 +173,46 @@ export const router = createBrowserRouter([
       <ProtectedRoute>
         <Layout>
           <ClientWorkoutEdit />
+        </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/workouts/prebuilt',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <PrebuiltWorkoutList />
+        </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/workouts/prebuilt/new',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <PrebuiltWorkoutCreate />
+        </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/workouts/prebuilt/:id',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <PrebuiltWorkoutDetail />
+        </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/workouts/prebuilt/:id/edit',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <PrebuiltWorkoutEdit />
         </Layout>
       </ProtectedRoute>
     ),

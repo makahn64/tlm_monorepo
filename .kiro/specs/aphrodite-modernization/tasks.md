@@ -201,19 +201,19 @@
     - Save to Firestore
     - _Requirements: 6.4_
 
-- [ ] 9. Implement Prebuilt Workouts
-  - [ ] 9.1 Create Prebuilt Workout List page
+- [x] 9. Implement Prebuilt Workouts
+  - [x] 9.1 Create Prebuilt Workout List page
     - Display all prebuilt workouts
     - Filter by visibility
     - Add create new button
     - _Requirements: 7.1, 7.4_
   
-  - [ ] 9.2 Create Prebuilt Workout Form
+  - [x] 9.2 Create Prebuilt Workout Form
     - Reuse workout editor
     - Add visibility selection
     - _Requirements: 7.2_
   
-  - [ ] 9.3 Implement workout template assignment
+  - [x] 9.3 Implement workout template assignment
     - Create copy of prebuilt workout
     - Link to client
     - _Requirements: 7.3_

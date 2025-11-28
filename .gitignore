@@ -46,6 +46,7 @@ FIREBASE_CONFIGS_SECURE.md
 service-account-key-dev.json
 service-account-key-staging.json
 service-account-key-prod.json
+service-account-key-prod-live.json  # Legacy LIVE production (tlm2021-41ce7)
 
 # Firestore exports (contain PII)
 firestore-export*.json

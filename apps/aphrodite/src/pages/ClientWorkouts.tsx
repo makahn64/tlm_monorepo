@@ -121,9 +121,17 @@ export const ClientWorkouts = () => {
           </h1>
           <p className="text-gray-500 mt-1">Manage and track client workouts</p>
         </div>
-        <Button onClick={() => navigate(`/clients/${clientId}/workouts/new`)}>
-          Create Workout
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            onClick={() => navigate(`/clients/${clientId}/workouts/from-template`)}
+          >
+            From Template
+          </Button>
+          <Button onClick={() => navigate(`/clients/${clientId}/workouts/new`)}>
+            Create Custom
+          </Button>
+        </div>
       </div>
 
       <Card>
@@ -132,14 +140,19 @@ export const ClientWorkouts = () => {
             <div className="text-center py-12">
               <p className="text-gray-500">No workouts found</p>
               <p className="text-sm text-gray-400 mt-1">
-                Get started by creating the first workout for this client
+                Get started by creating a workout for this client
               </p>
-              <Button
-                className="mt-4"
-                onClick={() => navigate(`/clients/${clientId}/workouts/new`)}
-              >
-                Create First Workout
-              </Button>
+              <div className="flex items-center justify-center gap-3 mt-4">
+                <Button onClick={() => navigate(`/clients/${clientId}/workouts/from-template`)}>
+                  From Template
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => navigate(`/clients/${clientId}/workouts/new`)}
+                >
+                  Create Custom
+                </Button>
+              </div>
             </div>
           ) : (
             <>
