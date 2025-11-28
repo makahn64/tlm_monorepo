@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "tlm-2021-dev",
+    "dev": "tlm-2021-dev",
+    "staging": "tlm-2021-staging",
+    "prod": "tlm-2021-prod"
+  }
+}

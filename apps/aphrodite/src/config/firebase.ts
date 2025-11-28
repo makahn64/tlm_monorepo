@@ -30,6 +30,8 @@ const configs: Record<Environment, FirebaseConfig> = {
     measurementId: 'G-6QPDV1TJZ6',
   },
   production: {
+    // NEW production project (not yet live)
+    // This is safe to have in code - it's for future deployment via CI/CD
     apiKey: 'AIzaSyAuuBl-Jr9Mnl7musBEQioGvFxyINEQqao',
     authDomain: 'tlm-2021-prod.firebaseapp.com',
     projectId: 'tlm-2021-prod',
@@ -43,7 +45,14 @@ const configs: Record<Environment, FirebaseConfig> = {
 const getEnvironment = (): Environment => {
   const env = import.meta.env.VITE_ENVIRONMENT as Environment | undefined;
 
-  if (env && (env === 'development' || env === 'staging' || env === 'production')) {
+  // SAFETY: Never allow production mode in local development
+  if (env === 'production') {
+    console.error('❌ PRODUCTION MODE IS DISABLED');
+    console.error('❌ Production can only be deployed through CI/CD');
+    throw new Error('Production mode is not allowed in local development');
+  }
+
+  if (env && (env === 'development' || env === 'staging')) {
     return env;
   }
 
@@ -53,3 +62,8 @@ const getEnvironment = (): Environment => {
 
 export const currentEnvironment = getEnvironment();
 export const firebaseConfig = configs[currentEnvironment];
+
+// Additional safety check
+if (firebaseConfig.projectId === 'tlm2021-41ce7' || firebaseConfig.projectId === 'PRODUCTION_NOT_ALLOWED') {
+  throw new Error('❌ CRITICAL: Production Firebase project detected. This is not allowed.');
+}

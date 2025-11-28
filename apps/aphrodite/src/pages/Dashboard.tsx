@@ -1,136 +1,170 @@
+import { useNavigate } from 'react-router-dom';
+import {
+  Dumbbell,
+  Users,
+  BookTemplate,
+  Video,
+  UserCog,
+  TrendingUp,
+} from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { currentEnvironment } from '../config/firebase';
+import { UserRole } from '@lotus/shared-types';
 
-export const Dashboard = () => {
-  const { user, signOut } = useAuth();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">Aphrodite</h1>
-              <span className="ml-2 text-sm text-gray-500">The Lotus Method</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className="text-sm text-gray-700">
-                <span className="font-medium">{user?.firstName} {user?.lastName}</span>
-                <span className="ml-2 text-gray-500">
-                  ({user?.roles.join(', ')})
-                </span>
-              </div>
-              <button
-                onClick={handleSignOut}
-                className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-              >
-                Sign Out
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <div className="bg-white shadow rounded-lg p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Welcome, {user?.firstName}!
-            </h2>
-            <p className="text-gray-600 mb-6">
-              You're logged into the Aphrodite admin and trainer portal.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h3 className="text-sm font-medium text-blue-900 mb-1">Environment</h3>
-                <p className="text-lg font-semibold text-blue-700">{currentEnvironment}</p>
-              </div>
-              
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                <h3 className="text-sm font-medium text-green-900 mb-1">User ID</h3>
-                <p className="text-sm font-mono text-green-700 truncate">{user?.uid}</p>
-              </div>
-              
-              <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                <h3 className="text-sm font-medium text-purple-900 mb-1">Roles</h3>
-                <p className="text-lg font-semibold text-purple-700">
-                  {user?.roles.length || 0}
-                </p>
-              </div>
-            </div>
-
-            <div className="border-t border-gray-200 pt-6">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <QuickActionCard
-                  title="Exercises"
-                  description="Manage exercise library"
-                  disabled
-                />
-                <QuickActionCard
-                  title="Clients"
-                  description="View and manage clients"
-                  disabled
-                />
-                <QuickActionCard
-                  title="Workouts"
-                  description="Create and assign workouts"
-                  disabled
-                />
-                <QuickActionCard
-                  title="Prebuilt Workouts"
-                  description="Manage workout templates"
-                  disabled
-                />
-                <QuickActionCard
-                  title="Media"
-                  description="Upload and manage videos"
-                  disabled
-                />
-                <QuickActionCard
-                  title="Users"
-                  description="Manage user accounts"
-                  disabled={!user?.roles.includes('admin')}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-};
-
-interface QuickActionCardProps {
+interface QuickAction {
   title: string;
   description: string;
-  disabled?: boolean;
+  icon: React.ComponentType<{ className?: string }>;
+  path: string;
+  requiredRoles?: UserRole[];
 }
 
-const QuickActionCard = ({ title, description, disabled }: QuickActionCardProps) => {
+const quickActions: QuickAction[] = [
+  {
+    title: 'Exercises',
+    description: 'Manage exercise library',
+    icon: Dumbbell,
+    path: '/exercises',
+    requiredRoles: [UserRole.ADMIN, UserRole.EDITOR, UserRole.TRAINER],
+  },
+  {
+    title: 'Clients',
+    description: 'View and manage clients',
+    icon: Users,
+    path: '/clients',
+    requiredRoles: [UserRole.ADMIN, UserRole.TRAINER],
+  },
+  {
+    title: 'Prebuilt Workouts',
+    description: 'Manage workout templates',
+    icon: BookTemplate,
+    path: '/workouts/prebuilt',
+    requiredRoles: [UserRole.ADMIN, UserRole.TRAINER],
+  },
+  {
+    title: 'Media Library',
+    description: 'Upload and manage videos',
+    icon: Video,
+    path: '/media',
+    requiredRoles: [UserRole.ADMIN, UserRole.EDITOR],
+  },
+  {
+    title: 'User Management',
+    description: 'Manage user accounts',
+    icon: UserCog,
+    path: '/users',
+    requiredRoles: [UserRole.ADMIN],
+  },
+];
+
+export const Dashboard = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const hasRequiredRole = (requiredRoles?: UserRole[]): boolean => {
+    if (!requiredRoles || requiredRoles.length === 0) {
+      return true;
+    }
+    return user?.roles.some(role => requiredRoles.includes(role)) ?? false;
+  };
+
+  const visibleActions = quickActions.filter(action => hasRequiredRole(action.requiredRoles));
+
+  const isTrainer = user?.roles.includes(UserRole.TRAINER);
+  const clientCount = user?.clients?.length || 0;
+
   return (
-    <button
-      disabled={disabled}
-      className={`text-left p-4 border rounded-lg transition-colors ${
-        disabled
-          ? 'bg-gray-50 border-gray-200 cursor-not-allowed opacity-60'
-          : 'bg-white border-gray-300 hover:border-blue-500 hover:shadow-md'
-      }`}
-    >
-      <h4 className="font-medium text-gray-900 mb-1">{title}</h4>
-      <p className="text-sm text-gray-600">{description}</p>
-      {disabled && (
-        <span className="inline-block mt-2 text-xs text-gray-500">Coming soon</span>
+    <div>
+      {/* Welcome Section */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          Welcome back, {user?.firstName}!
+        </h1>
+        <p className="text-gray-600">
+          Here's what's happening with your workspace today.
+        </p>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {isTrainer && (
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-600 mb-1">My Clients</p>
+                <p className="text-3xl font-bold text-gray-900">{clientCount}</p>
+              </div>
+              <div className="h-12 w-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Users className="h-6 w-6 text-blue-600" />
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="bg-white rounded-lg shadow p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-gray-600 mb-1">Your Roles</p>
+              <p className="text-lg font-semibold text-gray-900">
+                {user?.roles.map(role => role.charAt(0).toUpperCase() + role.slice(1)).join(', ')}
+              </p>
+            </div>
+            <div className="h-12 w-12 bg-purple-100 rounded-lg flex items-center justify-center">
+              <TrendingUp className="h-6 w-6 text-purple-600" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="bg-white rounded-lg shadow">
+        <div className="px-6 py-5 border-b border-gray-200">
+          <h2 className="text-lg font-semibold text-gray-900">Quick Actions</h2>
+          <p className="text-sm text-gray-600 mt-1">
+            Jump to the most common tasks
+          </p>
+        </div>
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {visibleActions.map((action) => {
+              const Icon = action.icon;
+              return (
+                <button
+                  key={action.path}
+                  onClick={() => navigate(action.path)}
+                  className="flex items-start p-4 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all text-left group"
+                >
+                  <div className="h-10 w-10 bg-gray-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-100 transition-colors">
+                    <Icon className="h-5 w-5 text-gray-600 group-hover:text-blue-600 transition-colors" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-gray-900 mb-1">{action.title}</h3>
+                    <p className="text-sm text-gray-600">{action.description}</p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Getting Started (for new users) */}
+      {isTrainer && clientCount === 0 && (
+        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <h3 className="text-lg font-semibold text-blue-900 mb-2">
+            Getting Started
+          </h3>
+          <p className="text-blue-800 mb-4">
+            You don't have any clients yet. Start by adding your first client to begin creating workouts.
+          </p>
+          <button
+            onClick={() => navigate('/clients/new')}
+            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <Users className="h-4 w-4 mr-2" />
+            Add Your First Client
+          </button>
+        </div>
       )}
-    </button>
+    </div>
   );
 };

@@ -104,20 +104,20 @@
     - Show access denied for insufficient permissions
     - _Requirements: 3.3, 3.4_
 
-- [ ] 5. Create Application Layout
-  - [ ] 5.1 Create main layout component
+- [x] 5. Create Application Layout
+  - [x] 5.1 Create main layout component
     - Build responsive layout structure
     - Add navigation sidebar
     - Add header with user info
     - _Requirements: 12.1-12.5_
   
-  - [ ] 5.2 Create navigation component
+  - [x] 5.2 Create navigation component
     - Implement role-based menu items
     - Add active route highlighting
     - Add logout button
     - _Requirements: 12.1-12.5_
   
-  - [ ] 5.3 Create Dashboard page
+  - [x] 5.3 Create Dashboard page
     - Build simple dashboard with quick actions
     - Show client count for trainers
     - Add navigation cards

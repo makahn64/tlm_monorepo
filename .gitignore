@@ -35,11 +35,17 @@ Thumbs.db
 # Testing
 coverage/
 
-# Security
-FIREBASE_CONFIGS_SECURE.md
-service-account-key.json
-*-service-account.json
+# Security - Service Account Keys
+# These provide admin access to Firebase and must NEVER be committed
+service-account-key*.json
+*-service-account*.json
 *firebase-adminsdk*.json
+FIREBASE_CONFIGS_SECURE.md
+
+# Specifically ignore all environment service accounts
+service-account-key-dev.json
+service-account-key-staging.json
+service-account-key-prod.json
 
 # Firestore exports (contain PII)
 firestore-export*.json

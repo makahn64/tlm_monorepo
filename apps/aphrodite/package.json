@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "vite --mode development",
     "dev:staging": "vite --mode staging",
-    "dev:prod": "vite --mode production",
-    "build": "tsc && vite build --mode production",
+    "build": "echo '❌ Production builds are disabled locally. Use CI/CD pipeline.' && exit 1",
     "build:dev": "tsc && vite build --mode development",
     "build:staging": "tsc && vite build --mode staging",
+    "build:prod": "echo '❌ Production builds are disabled locally. Use CI/CD pipeline.' && exit 1",
     "preview": "vite preview",
     "type-check": "tsc --noEmit",
     "lint": "eslint src",
