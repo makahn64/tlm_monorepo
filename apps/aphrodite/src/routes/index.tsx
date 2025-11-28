@@ -10,6 +10,10 @@ import { ClientDetail } from '../pages/ClientDetail';
 import { ClientCreate } from '../pages/ClientCreate';
 import { ClientEdit } from '../pages/ClientEdit';
 import { ClientNotesPage } from '../pages/ClientNotes';
+import { ClientWorkouts } from '../pages/ClientWorkouts';
+import { ClientWorkoutCreate } from '../pages/ClientWorkoutCreate';
+import { ClientWorkoutDetail } from '../pages/ClientWorkoutDetail';
+import { ClientWorkoutEdit } from '../pages/ClientWorkoutEdit';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { Layout } from '../components/Layout';
 
@@ -114,6 +118,46 @@ export const router = createBrowserRouter([
       <ProtectedRoute>
         <Layout>
           <ClientNotesPage />
+        </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/clients/:id/workouts',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <ClientWorkouts />
+        </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/clients/:id/workouts/new',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <ClientWorkoutCreate />
+        </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/clients/:id/workouts/:workoutId',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <ClientWorkoutDetail />
+        </Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/clients/:id/workouts/:workoutId/edit',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <ClientWorkoutEdit />
         </Layout>
       </ProtectedRoute>
     ),

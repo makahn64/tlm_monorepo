@@ -177,26 +177,26 @@
     - Allow editing own notes
     - _Requirements: 9.1-9.5_
 
-- [ ] 8. Implement Workout Management
-  - [ ] 8.1 Create Workout Editor component
+- [x] 8. Implement Workout Management
+  - [x] 8.1 Create Workout Editor component
     - Build exercise selection interface
     - Implement drag-and-drop ordering
     - Add exercise search
     - _Requirements: 6.1, 6.2_
   
-  - [ ] 8.2 Create Client Workouts page
+  - [x] 8.2 Create Client Workouts page
     - Display all workouts for a client
     - Add create new workout button
     - Show workout status
     - _Requirements: 6.5_
   
-  - [ ] 8.3 Create Workout Detail page
+  - [x] 8.3 Create Workout Detail page
     - Display workout exercises
     - Show workout metadata
     - Add edit button
     - _Requirements: 6.5_
   
-  - [ ] 8.4 Implement workout assignment
+  - [x] 8.4 Implement workout assignment
     - Link workout to client
     - Save to Firestore
     - _Requirements: 6.4_
