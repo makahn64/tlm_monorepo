@@ -322,6 +322,7 @@ export const calculateWorkoutDuration = (
 - Write testable code by avoiding side effects
 - Keep business logic pure and separate from framework code
 - Use dependency injection for external dependencies
+- Unit tests are written for everything possible, with coverage exceeding 80%
 
 ```typescript
 // Testable

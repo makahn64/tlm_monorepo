@@ -1,0 +1,18 @@
+{
+  "name": "@lotus/api-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lotus/shared-types": "workspace:*",
+    "firebase": "^10.7.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
