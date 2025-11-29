@@ -19,3 +19,7 @@ export type {
 
 // Note types
 export type { TrainerNote, Recommendation } from './note';
+
+// Lead types
+export { LeadState } from './lead';
+export type { Lead, ContactInfo, ProfileState } from './lead';

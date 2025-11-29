@@ -25,6 +25,9 @@ import { MediaDetail } from '../pages/MediaDetail';
 import { UserList } from '../pages/UserList';
 import { UserCreate } from '../pages/UserCreate';
 import { UserEdit } from '../pages/UserEdit';
+import { LeadList } from '../pages/LeadList';
+import { LeadDetail } from '../pages/LeadDetail';
+import { LeadConvert } from '../pages/LeadConvert';
 import { ProtectedRoute } from '../components/ProtectedRoute';
 import { RoleProtectedRoute } from '../components/RoleProtectedRoute';
 import { Layout } from '../components/Layout';
@@ -292,6 +295,42 @@ export const router = createBrowserRouter([
         <RoleProtectedRoute allowedRoles={[UserRole.ADMIN, UserRole.EDITOR]}>
           <Layout>
             <MediaDetail />
+          </Layout>
+        </RoleProtectedRoute>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/leads',
+    element: (
+      <ProtectedRoute>
+        <RoleProtectedRoute allowedRoles={[UserRole.ADMIN]}>
+          <Layout>
+            <LeadList />
+          </Layout>
+        </RoleProtectedRoute>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/leads/:id',
+    element: (
+      <ProtectedRoute>
+        <RoleProtectedRoute allowedRoles={[UserRole.ADMIN]}>
+          <Layout>
+            <LeadDetail />
+          </Layout>
+        </RoleProtectedRoute>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/leads/:id/convert',
+    element: (
+      <ProtectedRoute>
+        <RoleProtectedRoute allowedRoles={[UserRole.ADMIN]}>
+          <Layout>
+            <LeadConvert />
           </Layout>
         </RoleProtectedRoute>
       </ProtectedRoute>

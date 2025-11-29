@@ -7,6 +7,7 @@ export * from './workouts';
 export * from './prebuilt-workouts';
 export * from './media';
 export * from './notes';
+export * from './leads';
 export * from './errors';
 
 // Re-export types

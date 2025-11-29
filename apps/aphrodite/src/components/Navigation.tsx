@@ -7,6 +7,7 @@ import {
   BookTemplate,
   Video,
   UserCog,
+  UserPlus,
   LogOut,
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -53,6 +54,12 @@ const navItems: NavItem[] = [
     to: '/users',
     label: 'User Management',
     icon: UserCog,
+    requiredRoles: [UserRole.ADMIN],
+  },
+  {
+    to: '/leads',
+    label: 'Lead Management',
+    icon: UserPlus,
     requiredRoles: [UserRole.ADMIN],
   },
 ];
