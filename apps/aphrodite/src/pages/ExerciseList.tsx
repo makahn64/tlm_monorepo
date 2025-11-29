@@ -38,18 +38,36 @@ export const ExerciseList = () => {
   ).sort();
 
   const formatDuration = (seconds: number): string => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    if (minutes > 0) {
-      return `${minutes}m ${remainingSeconds}s`;
-    }
-    return `${seconds}s`;
+    if (seconds === 0) return '??:??';
+    const totalSeconds = Math.floor(seconds);
+    const minutes = Math.floor(totalSeconds / 60);
+    const remainingSeconds = totalSeconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
   const getIntensityColor = (intensity: number): 'default' | 'success' | 'warning' | 'danger' => {
     if (intensity <= 3) return 'success';
     if (intensity <= 6) return 'warning';
     return 'danger';
+  };
+
+  const getMediaUrl = (mediaRef: any): string | undefined => {
+    return mediaRef?.url || mediaRef?.mediaLink;
+  };
+
+  const getRowBackgroundColor = (exercise: Exercise): string => {
+    const completePre = getMediaUrl(exercise.prenatalThumb) && getMediaUrl(exercise.prenatalVideo);
+    const completePost = getMediaUrl(exercise.postnatalThumb) && getMediaUrl(exercise.postnatalVideo);
+    
+    if (completePre && completePost) {
+      return 'transparent';
+    } else if (completePre) {
+      return '#d4bdfa'; // Purple tint
+    } else if (completePost) {
+      return '#bde9fa'; // Blue tint
+    } else {
+      return '#ff8b8b'; // Red tint
+    }
   };
 
   return (
@@ -176,24 +194,51 @@ export const ExerciseList = () => {
                 <Table>
                   <TableHeader>
                     <TableRow>
+                      <TableHead>Thumb</TableHead>
                       <TableHead>Name</TableHead>
                       <TableHead>Movement Pattern</TableHead>
                       <TableHead>Intensity</TableHead>
-                      <TableHead>Duration</TableHead>
-                      <TableHead>Equipment</TableHead>
+                      <TableHead>Tags</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {exercises.map((exercise) => (
-                      <TableRow key={exercise.docId}>
+                      <TableRow 
+                        key={exercise.docId}
+                        style={{ backgroundColor: getRowBackgroundColor(exercise) }}
+                      >
+                        <TableCell>
+                          <div className="flex flex-col items-center gap-1">
+                            {getMediaUrl(exercise.prenatalThumb) ? (
+                              <img 
+                                src={getMediaUrl(exercise.prenatalThumb)} 
+                                alt={exercise.name}
+                                className="w-24 h-16 object-cover rounded"
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  target.style.display = 'none';
+                                  const parent = target.parentElement;
+                                  if (parent) {
+                                    parent.innerHTML = '<div class="w-24 h-16 bg-yellow-100 rounded flex items-center justify-center text-xs text-gray-600">Access blocked</div>';
+                                  }
+                                }}
+                              />
+                            ) : (
+                              <div className="w-24 h-16 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-400">
+                                No image
+                              </div>
+                            )}
+                            <div className="text-xs text-gray-600">{formatDuration(exercise.duration)}</div>
+                          </div>
+                        </TableCell>
                         <TableCell className="font-medium">
                           <Link
                             to={`/exercises/${exercise.docId}`}
                             className="text-blue-600 hover:underline"
                           >
-                            {exercise.name}
+                            {exercise.title}
                           </Link>
                         </TableCell>
                         <TableCell>{exercise.movementPattern}</TableCell>
@@ -202,16 +247,37 @@ export const ExerciseList = () => {
                             {exercise.intensity}/10
                           </Badge>
                         </TableCell>
-                        <TableCell>{formatDuration(exercise.duration)}</TableCell>
                         <TableCell>
-                          <div className="flex flex-wrap gap-1">
-                            {exercise.equipment.slice(0, 2).map((equip) => (
-                              <Badge key={equip} variant="secondary">
-                                {equip}
-                              </Badge>
-                            ))}
-                            {exercise.equipment.length > 2 && (
-                              <Badge variant="default">+{exercise.equipment.length - 2}</Badge>
+                          <div className="space-y-2 text-xs">
+                            {exercise.stress && exercise.stress.length > 0 && (
+                              <div>
+                                <span className="font-semibold text-gray-700">Stress: </span>
+                                <span className="text-gray-600">{exercise.stress.join(', ')}</span>
+                              </div>
+                            )}
+                            {exercise.activates && exercise.activates.length > 0 && (
+                              <div>
+                                <span className="font-semibold text-gray-700">Activates: </span>
+                                <span className="text-gray-600">{exercise.activates.join(', ')}</span>
+                              </div>
+                            )}
+                            {exercise.releases && exercise.releases.length > 0 && (
+                              <div>
+                                <span className="font-semibold text-gray-700">Releases: </span>
+                                <span className="text-gray-600">{exercise.releases.join(', ')}</span>
+                              </div>
+                            )}
+                            {exercise.equipment && exercise.equipment.length > 0 && (
+                              <div>
+                                <span className="font-semibold text-gray-700">Equipment: </span>
+                                <span className="text-gray-600">{exercise.equipment.join(', ')}</span>
+                              </div>
+                            )}
+                            {exercise.optionalEquipment && exercise.optionalEquipment.length > 0 && (
+                              <div>
+                                <span className="font-semibold text-gray-700">Optional: </span>
+                                <span className="text-gray-600">{exercise.optionalEquipment.join(', ')}</span>
+                              </div>
                             )}
                           </div>
                         </TableCell>

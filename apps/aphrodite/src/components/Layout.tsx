@@ -61,7 +61,7 @@ export const Layout = ({ children }: LayoutProps) => {
       {/* Main content area */}
       <div className="lg:pl-64 flex flex-col min-h-screen">
         {/* Header */}
-        <header className="bg-white shadow-sm z-10">
+        <header className="bg-white shadow-sm z-10 sticky top-0">
           <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
             {/* Mobile menu button */}
             <button
@@ -75,7 +75,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <div className="lg:hidden" />
 
             {/* User info */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 ml-auto">
               <div className="text-right">
                 <p className="text-sm font-medium text-gray-900">
                   {user?.firstName} {user?.lastName}
