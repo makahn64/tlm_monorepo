@@ -32,7 +32,15 @@ export const ClientWorkoutCreate = () => {
   }, [clientId]);
 
   const handleSave = async (exercises: Exercise[], workoutData: any) => {
-    if (!clientId || !user) return;
+    if (!clientId) {
+      setError('Client ID is missing');
+      return;
+    }
+    
+    if (!user) {
+      setError('You must be logged in to create a workout');
+      return;
+    }
 
     try {
       setLoading(true);

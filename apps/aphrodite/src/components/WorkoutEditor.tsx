@@ -108,6 +108,11 @@ export const WorkoutEditor = ({
     setDraggedIndex(null);
   };
 
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDraggedIndex(null);
+  };
+
   // Calculate total duration
   const totalDuration = selectedExercises.reduce((sum, ex) => sum + (ex.duration || 0), 0);
   const totalMinutes = Math.floor(totalDuration / 60);
@@ -262,6 +267,7 @@ export const WorkoutEditor = ({
                     onDragStart={() => handleDragStart(index)}
                     onDragOver={(e) => handleDragOver(e, index)}
                     onDragEnd={handleDragEnd}
+                    onDrop={handleDrop}
                     className={`flex items-center gap-3 p-3 border border-gray-200 rounded-md cursor-move hover:bg-gray-50 ${
                       draggedIndex === index ? 'opacity-50' : ''
                     }`}

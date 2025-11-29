@@ -120,15 +120,12 @@ export const getExerciseById = async (
  */
 export const getPublishedExercises = async (db: Firestore): Promise<Exercise[]> => {
   const exercisesRef = collection(db, EXERCISES_COLLECTION);
-  const q = query(
-    exercisesRef,
-    where('published', '==', true),
-    where('archived', '==', false),
-    orderBy('name')
-  );
+  const q = query(exercisesRef, orderBy('name'));
   const snapshot = await getDocs(q);
   
-  return snapshot.docs.map((doc) => documentToExercise(doc.id, doc.data()));
+  return snapshot.docs
+    .map((doc) => documentToExercise(doc.id, doc.data()))
+    .filter((exercise) => exercise.published && !exercise.archived);
 };
 
 /**

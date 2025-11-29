@@ -55,18 +55,41 @@ const documentToWorkout = (id: string, data: DocumentData): Workout => {
 };
 
 /**
+ * Remove undefined values from an object recursively
+ */
+const removeUndefined = (obj: any): any => {
+  if (Array.isArray(obj)) {
+    return obj.map(removeUndefined);
+  }
+  
+  if (obj !== null && typeof obj === 'object') {
+    const cleaned: any = {};
+    for (const key in obj) {
+      if (obj[key] !== undefined) {
+        cleaned[key] = removeUndefined(obj[key]);
+      }
+    }
+    return cleaned;
+  }
+  
+  return obj;
+};
+
+/**
  * Converts Workout type to Firestore document data
  */
 const workoutToDocument = (workout: Omit<Workout, 'id'>): DocumentData => {
   const doc: DocumentData = {
-    name: workout.name,
     workoutType: workout.workoutType,
-    exercises: workout.exercises,
+    exercises: removeUndefined(workout.exercises),
     createdBy: workout.createdBy,
     createdAt: Timestamp.fromDate(workout.createdAt),
     generatedBy: workout.generatedBy,
-    duration: workout.duration,
   };
+  
+  // Only add optional fields if they have values
+  if (workout.name !== undefined) doc.name = workout.name;
+  if (workout.duration !== undefined) doc.duration = workout.duration;
   
   if (workout.startedOn) {
     doc.startedOn = Timestamp.fromDate(workout.startedOn);
